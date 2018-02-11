@@ -8,7 +8,7 @@ namespace CustomerNameSearch.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.Customers",
+                "dbo.customersOrigional",
                 c => new
                     {
                         CustomerID = c.Int(nullable: false, identity: true),
@@ -23,7 +23,7 @@ namespace CustomerNameSearch.Migrations
         
         public override void Down()
         {
-            DropTable("dbo.Customers");
+            DropTable("dbo.customersOrigional");
         }
     }
 }

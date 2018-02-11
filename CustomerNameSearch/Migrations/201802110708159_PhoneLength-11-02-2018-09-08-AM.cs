@@ -7,12 +7,12 @@ namespace CustomerNameSearch.Migrations
     {
         public override void Up()
         {
-            AlterColumn("dbo.Customers", "Phone", c => c.String(maxLength: 12));
+            AlterColumn("dbo.customersOrigional", "Phone", c => c.String(maxLength: 12));
         }
         
         public override void Down()
         {
-            AlterColumn("dbo.Customers", "Phone", c => c.String(maxLength: 10));
+            AlterColumn("dbo.customersOrigional", "Phone", c => c.String(maxLength: 10));
         }
     }
 }

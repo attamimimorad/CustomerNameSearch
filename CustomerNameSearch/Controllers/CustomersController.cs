@@ -17,67 +17,81 @@ namespace CustomerNameSearch.Controllers
         // GET: Customers
         public ActionResult Index(string searchString)
         {
-            if (searchString!=null)
+            if (searchString != null)
             {
                 var customers = db.Customers.ToList();
-                var Thecustomers = db.Customers.ToList();
+                var customersQ = new List<Customer>();
+                var Thecustomers = new List<Customer>();
 
 
 
                 Char delimiter = ' ';
-            String[] substrings = searchString.Split(delimiter);
+                String[] substrings = searchString.Split(delimiter);
+
+
                 for (int i = 0; i < substrings.Length; i++)
                 {
-                    customers = customers.Where(cust => (cust.FirstName + string.Empty + cust.MiddleName + string.Empty + cust.LastName + string.Empty + cust.Phone).Contains(substrings[i])).ToList();
-                    if (customers.Count()>0)
+                    customersQ = customers.Where(cust => (cust.FirstName + string.Empty + cust.MiddleName + string.Empty + cust.LastName + string.Empty + cust.Phone).Contains(substrings[i])).ToList();
+                    if (customersQ.Count() > 0)
                     {
-                        for (int x = i + 1; x < substrings.Length; x++)
+                        //for (int x = i + 1; x < substrings.Length; x++)
+                        for (int x = 0; x < substrings.Length; x++)
                         {
-                            Thecustomers = customers.Where(cust => (cust.FirstName + string.Empty + cust.MiddleName + string.Empty + cust.LastName + string.Empty + cust.Phone).Contains(substrings[x])).ToList();
+                            Thecustomers = customersQ.Where(cust => (cust.FirstName + string.Empty + cust.MiddleName + string.Empty + cust.LastName + string.Empty + cust.Phone).Contains(substrings[x])).ToList();
                             if (Thecustomers.Count() == 0)
                             {
-
+                                Thecustomers = customersQ;
                             }
                             else
                             {
-                                customers = Thecustomers;
+                                customersQ = Thecustomers;
                             }
                         }
 
-                       
+
                     }
                     else
                     {
                         continue;
 
                     }
-                   
+
                 }
-            
-            //for (int i = 1; i < substrings.Length; i++)
-            //{
-
-
-            //        //  customers.Concat(db.Customers.Where(cust => (cust.FirstName + string.Empty + cust.MiddleName + string.Empty + cust.LastName + string.Empty + cust.Phone).Contains(substrings[i])));
-            //        if (customers.Count()>0)
-            //        {
-            //            customers.Union(db.Customers.Where(cust => (cust.FirstName + string.Empty + cust.MiddleName + string.Empty + cust.LastName + string.Empty + cust.Phone).Contains(substrings[i])));
-            //        }
-            //        else
-            //        {
-            //            customers = customers.Where(cust => (cust.FirstName + string.Empty + cust.MiddleName + string.Empty + cust.LastName + string.Empty + cust.Phone).Contains(substrings[0])).ToList();
-            //        }
-                    
 
 
 
-            //    }
-              
-                    return View(customers);
-               
-                   
-                
-          
+
+
+
+
+
+
+
+
+                //for (int i = 1; i < substrings.Length; i++)
+                //{
+
+
+                //        //  customers.Concat(db.Customers.Where(cust => (cust.FirstName + string.Empty + cust.MiddleName + string.Empty + cust.LastName + string.Empty + cust.Phone).Contains(substrings[i])));
+                //        if (customers.Count()>0)
+                //        {
+                //            customers.Union(db.Customers.Where(cust => (cust.FirstName + string.Empty + cust.MiddleName + string.Empty + cust.LastName + string.Empty + cust.Phone).Contains(substrings[i])));
+                //        }
+                //        else
+                //        {
+                //            customers = customers.Where(cust => (cust.FirstName + string.Empty + cust.MiddleName + string.Empty + cust.LastName + string.Empty + cust.Phone).Contains(substrings[0])).ToList();
+                //        }
+
+
+
+
+                //    }
+
+                return View(Thecustomers);
+
+
+
+
             }
             else
             {
